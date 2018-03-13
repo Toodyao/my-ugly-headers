@@ -1,4 +1,5 @@
 // singly linked list without head node
+
 #ifndef _MYLIST_HPP_
 #define _MYLIST_HPP_
 
@@ -43,13 +44,12 @@ public:
 		if (list_size == 0) {
 			list_curr = new node(value);
 			list_tail = list_head = list_curr;
-			list_size++;
 		} else {
 			node *temp = new node(value);
 			list_tail->next = temp;
 			list_tail = list_tail->next;
-			list_size++;
 		}
+		list_size++;
 	}
 
 	void insert(T find_data, T insert_data) {
@@ -63,6 +63,7 @@ public:
 		if (list_curr == nullptr) {
 			// if can't find find_data
 			list_curr->next = temp;
+			list_tail = temp;
 		} else {
 			temp->next = list_curr->next;
 			list_curr->next = temp;
@@ -94,6 +95,8 @@ public:
 			if (list_curr->data == value) {
 				pre->next = list_curr->next;
 				delete list_curr;
+				if (pre->next == nullptr)
+					list_tail = pre;
 				list_curr = pre->next;
 				list_size--;
 			} else {
@@ -111,6 +114,9 @@ public:
 			list_curr = list_head;
 		}
 		list_size = 0;
+		list_curr = nullptr;
+		list_head = nullptr;
+		list_tail = nullptr;
 	}
 
 	int size() {
