@@ -7,6 +7,7 @@
 #include <iostream>
 
 // TODO: add const
+// TODO: fix erase() when iterator equals to delate num
 template<typename T>
 class Mylist {
 protected:
@@ -142,6 +143,12 @@ void Mylist<T>::erase(T value) {
 
 	if (list_curr->data == value) {
 		// value is in the first place
+
+		// if iterator is on the value to be erased
+		// move the iterator to the next position
+		if (iterator == list_curr)
+			iterator = list_curr->next;
+
 		node *temp = list_head;
 		list_head = list_head->next;
 		delete temp;
@@ -153,10 +160,18 @@ void Mylist<T>::erase(T value) {
 	node *pre = list_head;
 	while (list_curr != nullptr) {
 		if (list_curr->data == value) {
+			// move iterator to next
+			if (iterator == list_curr)
+				iterator = list_curr->next;
+			
 			pre->next = list_curr->next;
 			delete list_curr;
+
+			// correct tail pointer
 			if (pre->next == nullptr)
 				list_tail = pre;
+			
+
 			list_curr = pre->next;
 			list_size--;
 		} else {
@@ -178,6 +193,7 @@ void Mylist<T>::clear() {
 	list_curr = nullptr;
 	list_head = nullptr;
 	list_tail = nullptr;
+	iterator  = nullptr;
 }
 
 template<typename T>
