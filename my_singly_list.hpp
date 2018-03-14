@@ -26,7 +26,7 @@ protected:
 public:
 	node *iterator;
 
-	Mylist();
+	Mylist ();
 	~Mylist();
 
 	bool empty();
@@ -36,15 +36,15 @@ public:
 	void push_front(T value);
 	void pop_front ();
 	void insert(T find_data, T insert_data);
-	void erase(T value);
-	void clear();
+	void erase (T value);
+	void clear ();
 
 	void print();
 
 	node* begin();
-	node* end();
-	node* next();
-	void move_to(T value);
+	node* end  ();
+	node* next ();
+	node* move_to(T value);
 
 
 };
@@ -214,13 +214,14 @@ typename Mylist<T>::node *Mylist<T>::end() {
 }
 
 template<typename T>
-void Mylist<T>::move_to(T value) {
+typename Mylist<T>::node *Mylist<T>::move_to(T value) {
 	iterator = begin();
 	while (iterator != nullptr) {
 		if (iterator->data == value)
 			break;
 		iterator = iterator->next;
 	}
+	return iterator;
 }
 
 template<typename T>
@@ -229,5 +230,6 @@ typename Mylist<T>::node *Mylist<T>::next() {
 		iterator->next : nullptr;
 }
 // iterator public functions end;
+
 
 #endif // _MY_SINGLY_LIST_HPP_
