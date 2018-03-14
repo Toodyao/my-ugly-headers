@@ -12,24 +12,24 @@ public:
 	~Mystack() { }
 
 	void push(T value) {
-		this->push_front(value);
+		Mylist<T>::push_front(value);
 	}
 
 	void pop() {
-		this->pop_front();
+		Mylist<T>::pop_front();
 	}
 
 	T top() {
 		// check empty() before use!
-		return this->list_head->data;
+		return Mylist<T>::list_head->data;
 	}
 
 	bool empty() {
-		return this->empty();
+		return Mylist<T>::empty();
 	}
 
 	int size() {
-		return this->size();
+		return Mylist<T>::size();
 	}
 };
 
