@@ -1,22 +1,20 @@
-// singly linked list without head node
+//singly linked list without head node
 
-#ifndef _MYLIST_HPP_
-#define _MYLIST_HPP_
+#ifndef _MY_SINGLY_LIST_HPP_
+#define _MY_SINGLY_LIST_HPP_
 
 #include <iostream>
 
 // TODO: add const
-// TODO: finish list_tail
-// TODO: add head node
-template<class T>
-class mylist {
-private:
+template<typename T>
+class Mylist {
+protected:
 	struct node {
 		T data;
 		node *next;
 		node(T d) {
-			next = nullptr;
 			data = d;
+			next = nullptr;
 		}
 	};
 	int list_size;
@@ -25,14 +23,14 @@ private:
 	node *list_tail;
 
 public:
-	mylist() {
+	Mylist() {
 		list_size = 0;
 		list_curr = nullptr;
 		list_head = nullptr;
 		list_tail = nullptr;
 	}
 
-	~mylist() {
+	~Mylist() {
 		clear();
 	};
 	
@@ -41,7 +39,7 @@ public:
 	}
 
 	void push_back(T value) {
-		if (list_size == 0) {
+		if (empty()) {
 			list_curr = new node(value);
 			list_tail = list_head = list_curr;
 		} else {
@@ -50,6 +48,32 @@ public:
 			list_tail = list_tail->next;
 		}
 		list_size++;
+	}
+
+	void push_front(T value) {
+		list_curr = new node(value);
+		
+		if (empty()) {
+			list_tail = list_head = list_curr;
+		} else {
+			list_curr->next = list_head;
+			list_head = list_curr;
+		}
+		list_size++;
+	}
+
+	void pop_front() {
+		if (empty()) {
+			std::cout << "list is empty!" << std::endl;
+			return;
+		}
+
+		list_curr = list_head;
+		list_head = list_head->next;
+		delete list_curr;
+		list_curr = list_head;
+
+		list_size--;
 	}
 
 	void insert(T find_data, T insert_data) {
@@ -144,4 +168,4 @@ public:
 
 };
 
-#endif
+#endif // _MY_SINGLY_LIST_HPP_
