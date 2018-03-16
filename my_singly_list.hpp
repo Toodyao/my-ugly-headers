@@ -7,7 +7,6 @@
 #include <iostream>
 
 // TODO: add const
-// TODO: fix erase() when iterator equals to delate num
 template<typename T>
 class Mylist {
 protected:
