@@ -161,7 +161,9 @@ void Mylist<T>::erase(T value) {
 		if (list_curr->data == value) {
 			// move iterator to next
 			if (iterator == list_curr)
-				iterator = list_curr->next;
+				iterator = list_curr->next ? 
+						list_curr->next : list_head;
+				// iterator = next();
 			
 			pre->next = list_curr->next;
 			delete list_curr;

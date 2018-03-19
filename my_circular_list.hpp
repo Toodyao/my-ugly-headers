@@ -10,7 +10,7 @@ public:
 	~Circularlist() { }
 
 	typename Mylist<T>::node *next() {
-	return Mylist<T>::iterator != nullptr ? 
+	return Mylist<T>::iterator->next ? 
 		Mylist<T>::iterator->next : Mylist<T>::list_head;
 	}
 
