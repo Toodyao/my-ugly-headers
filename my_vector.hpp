@@ -5,10 +5,11 @@
 
 #include <iostream>
 
+// TODO: perfect dynamic array & tail pointer
 template<typename T>
 class Myvector {
 private:
-	int size;
+	int arr_size;
 	int max_size;
 	T *arr;
 	T *tail;
@@ -20,6 +21,7 @@ public:
 	void push_back(T data);
 	void erase(T data);
 	int find(T data);
+	int size();
 	bool empty();
 	void clear();
 	void print();
@@ -37,8 +39,9 @@ public:
 template<typename T>
 Myvector<T>::Myvector(int n) {
 	// tail = arr = new T[(int)(n*1.5)];
-	tail = arr = new T[n];
-	size = n;
+	arr = new T[n];
+	tail = arr+n;
+	arr_size = n;
 	max_size = n;
 }
 
@@ -46,7 +49,7 @@ template<typename T>
 Myvector<T>::~Myvector() {
 	delete [] arr;
 	arr = tail = nullptr;
-	size = 0;
+	arr_size = 0;
 	max_size = 0;
 }
 
@@ -59,7 +62,7 @@ void Myvector<T>::push_back(T data) {
 
 	*tail = data;
 	tail++;
-	size++;
+	arr_size++;
 	// if (size >= max_size) {
 	// 	reallocate()
 	// 	size++;
@@ -74,7 +77,7 @@ void Myvector<T>::erase(T data) {
 	}
 
 	int index = -1;
-	for (int i = 0; i < size; ++i) {
+	for (int i = 0; i < arr_size; ++i) {
 		if (arr[i] == data) {
 			index = i;
 			break;
@@ -85,23 +88,28 @@ void Myvector<T>::erase(T data) {
 		return;
 	}
 
-	for (int i = index; i < size-1; ++i)
+	for (int i = index; i < arr_size-1; ++i)
 		arr[i] = arr[i+1];
 
-	size--;
+	arr_size--;
 	tail--;
 }
 
 template<typename T>
 bool Myvector<T>::empty() {
-	return size == 0;
+	return arr_size == 0;
+}
+
+template<typename T>
+int Myvector<T>::size() {
+	return arr_size;
 }
 
 template<typename T>
 void Myvector<T>::clear() {
 	// delete [] arr;
 	tail = &arr[0];
-	size = 0;
+	arr_size = 0;
 }
 
 template<typename T>
