@@ -23,6 +23,9 @@ public:
 	bool empty();
 	void clear();
 	void print();
+
+	T& operator[](int n);
+	// Myvector<T>& operator=(const Myvector<T>& v);
 };
 
 // template<typename T>
@@ -112,6 +115,16 @@ void Myvector<T>::print() {
 	std::cout << std::endl;
 }
 
+template<typename T>
+T& Myvector<T>::operator[](int n) {
+	return arr[n];
+}
 
+// template<typename T>
+// Myvector<T>& Myvector<T>::operator=(T data) {
+// 	if (&v == this)
+// 		return *this;
+// 	this.arr[] // unfinished, return what?
+// }
 
 #endif // _MY_VECTOR_HPP_
