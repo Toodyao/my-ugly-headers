@@ -38,7 +38,7 @@ template<typename T>
 Myvector<T>::Myvector(int n) {
 	// tail = arr = new T[(int)(n*1.5)];
 	tail = arr = new T[n];
-	size = 0;
+	size = n;
 	max_size = n;
 }
 
@@ -60,6 +60,10 @@ void Myvector<T>::push_back(T data) {
 	*tail = data;
 	tail++;
 	size++;
+	// if (size >= max_size) {
+	// 	reallocate()
+	// 	size++;
+	// }
 }
 
 template<typename T>
@@ -95,7 +99,7 @@ bool Myvector<T>::empty() {
 
 template<typename T>
 void Myvector<T>::clear() {
-	delete [] arr;
+	// delete [] arr;
 	tail = &arr[0];
 	size = 0;
 }
