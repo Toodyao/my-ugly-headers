@@ -9,7 +9,7 @@ public:
 	Circularlist()  { }
 	~Circularlist() { }
 
-	typename Mylist<T>::node *next() {
+	inline typename Mylist<T>::node *next() {
 	return Mylist<T>::iterator->next ? 
 		Mylist<T>::iterator->next : Mylist<T>::list_head;
 	}

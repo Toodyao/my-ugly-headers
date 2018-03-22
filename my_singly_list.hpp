@@ -29,8 +29,8 @@ public:
 	Mylist ();
 	~Mylist();
 
-	bool empty();
-	int  size ();
+	inline bool empty();
+	inline int  size ();
 
 	void push_back (T value);
 	void push_front(T value);
@@ -41,10 +41,10 @@ public:
 
 	void print();
 
-	node* begin();
-	node* end  ();
-	node* next ();
-	node* move_to(T value);
+	inline node* begin();
+	inline node* end  ();
+	inline node* next ();
+	inline node* move_to(T value);
 
 
 };
@@ -65,7 +65,7 @@ Mylist<T>::~Mylist() {
 }
 
 template<typename T>
-bool Mylist<T>::empty() {
+inline bool Mylist<T>::empty() {
 	return list_size == 0;
 }
 
@@ -213,7 +213,7 @@ void Mylist<T>::print() {
 }
 
 template<typename T>
-int Mylist<T>::size() {
+inline int Mylist<T>::size() {
 	return list_size;
 }
 // basic funtions end
@@ -221,12 +221,12 @@ int Mylist<T>::size() {
 
 // iterator public functions begin:
 template<typename T>
-typename Mylist<T>::node *Mylist<T>::begin() {
+inline typename Mylist<T>::node *Mylist<T>::begin() {
 	return list_head;
 }
 
 template<typename T>
-typename Mylist<T>::node *Mylist<T>::end() {
+inline typename Mylist<T>::node *Mylist<T>::end() {
 	return list_tail;
 }
 
@@ -242,7 +242,7 @@ typename Mylist<T>::node *Mylist<T>::move_to(T value) {
 }
 
 template<typename T>
-typename Mylist<T>::node *Mylist<T>::next() {
+inline typename Mylist<T>::node *Mylist<T>::next() {
 	return iterator != nullptr ? 
 		iterator->next : nullptr;
 }

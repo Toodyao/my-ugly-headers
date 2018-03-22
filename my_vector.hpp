@@ -21,12 +21,12 @@ public:
 	void push_back(T data);
 	void erase(T data);
 	int find(T data);
-	int size();
-	bool empty();
+	inline int size();
+	inline bool empty();
 	void clear();
 	void print();
 
-	T& operator[](int n);
+	inline T& operator[](int n);
 	// Myvector<T>& operator=(const Myvector<T>& v);
 };
 
@@ -96,12 +96,12 @@ void Myvector<T>::erase(T data) {
 }
 
 template<typename T>
-bool Myvector<T>::empty() {
+inline bool Myvector<T>::empty() {
 	return arr_size == 0;
 }
 
 template<typename T>
-int Myvector<T>::size() {
+inline int Myvector<T>::size() {
 	return arr_size;
 }
 
@@ -127,7 +127,7 @@ void Myvector<T>::print() {
 	std::cout << std::endl;
 }
 
-template<typename T>
+inline template<typename T>
 T& Myvector<T>::operator[](int n) {
 	return arr[n];
 }
