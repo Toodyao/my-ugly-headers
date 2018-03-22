@@ -127,8 +127,8 @@ void Myvector<T>::print() {
 	std::cout << std::endl;
 }
 
-inline template<typename T>
-T& Myvector<T>::operator[](int n) {
+template<typename T>
+inline T& Myvector<T>::operator[](int n) {
 	return arr[n];
 }
 
