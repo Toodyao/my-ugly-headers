@@ -38,6 +38,7 @@ public:
 	void insert(T find_data, T insert_data);
 	void erase (T value);
 	void clear ();
+	void reverse();
 
 	void print();
 
@@ -195,6 +196,38 @@ void Mylist<T>::clear() {
 	list_head = nullptr;
 	list_tail = nullptr;
 	iterator  = nullptr;
+}
+
+template<typename T>
+void Mylist<T>::reverse() {
+	if (empty()) {
+		std::cout << "list is empty!" << std::endl;
+		return;
+	}
+	if (size() == 1) // don't need to reverse
+		return;
+	
+	list_tail = list_head;
+	if (size() == 2) { // size == 2
+		q->next = p;
+		list_head = q;
+		return;
+	}
+	node *p = list_head, *q = list_head->next;
+	p->next = nullptr;
+
+	node *r = q->next;
+	while (q != nullptr) {
+		q->next = p;
+		p = q;
+		q = r;
+		r = r->next;
+		if (r == nullptr) {
+			q->next = p;
+			break;
+		}
+	}
+	list_head = q;
 }
 
 template<typename T>
