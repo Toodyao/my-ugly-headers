@@ -208,14 +208,14 @@ void Mylist<T>::reverse() {
 		return;
 	
 	list_tail = list_head;
+
+	node *p = list_head, *q = list_head->next;
+	p->next = nullptr;
 	if (size() == 2) { // size == 2
 		q->next = p;
 		list_head = q;
 		return;
 	}
-	node *p = list_head, *q = list_head->next;
-	p->next = nullptr;
-
 	node *r = q->next;
 	while (q != nullptr) {
 		q->next = p;
