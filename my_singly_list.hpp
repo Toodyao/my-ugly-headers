@@ -38,7 +38,9 @@ public:
 	void insert(T find_data, T insert_data);
 	void erase (T value);
 	void clear ();
+	
 	void reverse();
+	T find_last_m(int m);
 
 	void print();
 
@@ -228,6 +230,28 @@ void Mylist<T>::reverse() {
 		}
 	}
 	list_head = q;
+}
+
+template<typename T>
+T Mylist<T>::find_last_m(int m) {
+	if (size() < m + 1) {
+		std::cout << "list length not satisfied!" << std::endl;
+		return -1;
+	}
+	if (size() == 1) {
+		return list_head->data;
+	}
+	node *p = list_head;
+	node *q = list_head;
+	int count = m;
+	while (count--) {
+		p = p->next;
+	}
+	while (p->next != nullptr) {
+		p = p->next;
+		q = q->next;
+	}
+	return q->data;
 }
 
 template<typename T>
