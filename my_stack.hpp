@@ -19,7 +19,7 @@ public:
 		Mylist<T>::pop_front();
 	}
 
-	inline T front() {
+	inline T top() {
 		// check empty() before use!
 		return Mylist<T>::list_head->data;
 	}
