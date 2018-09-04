@@ -4,15 +4,16 @@
 #define _MY_VECTOR_HPP_
 
 #include <iostream>
+#include <cassert>
 
-// TODO: perfect dynamic array & tail pointer
+// TODO: Constructor, clear()
 template<typename T>
 class Myvector {
 private:
 	int arr_size;
 	int max_size;
-	T *arr;
-	T *tail;
+	T *arr_head; // Head of whole array
+	T *arr_tail; // Tail of whole array
 public:
 	// Myvector();
 	Myvector(int n);
@@ -25,6 +26,8 @@ public:
 	inline bool empty();
 	void clear();
 	void print();
+	void resize(int n);
+	void push_back_resize(int n); // Only for push_back() function
 
 	inline T& operator[](int n);
 	// Myvector<T>& operator=(const Myvector<T>& v);
@@ -39,34 +42,30 @@ public:
 template<typename T>
 Myvector<T>::Myvector(int n) {
 	// tail = arr = new T[(int)(n*1.5)];
-	arr = new T[n];
-	tail = arr+n;
+	arr_head = new T[n];
+	arr_tail = arr_head+n;
 	arr_size = n;
 	max_size = n;
 }
 
 template<typename T>
 Myvector<T>::~Myvector() {
-	delete [] arr;
-	arr = tail = nullptr;
+	delete [] arr_head;
+	arr_head = arr_tail = nullptr;
 	arr_size = 0;
 	max_size = 0;
 }
 
 template<typename T>
 void Myvector<T>::push_back(T data) {
-	if (tail-arr >= max_size) {
-		std::cout << "vector full" << std::endl;
-		return;
+	if (arr_tail - arr_head >= max_size) { // Vector full, resize it to 1.5x
+		max_size = (int)max_size * 1.5;
+		push_back_resize(max_size);
 	}
 
-	*tail = data;
-	tail++;
+	*arr_tail = data;
+	arr_tail++;
 	arr_size++;
-	// if (size >= max_size) {
-	// 	reallocate()
-	// 	size++;
-	// }
 }
 
 template<typename T>
@@ -78,7 +77,7 @@ void Myvector<T>::erase(T data) {
 
 	int index = -1;
 	for (int i = 0; i < arr_size; ++i) {
-		if (arr[i] == data) {
+		if (arr_head[i] == data) {
 			index = i;
 			break;
 		}
@@ -89,10 +88,10 @@ void Myvector<T>::erase(T data) {
 	}
 
 	for (int i = index; i < arr_size-1; ++i)
-		arr[i] = arr[i+1];
+		arr_head[i] = arr_head[i+1];
 
 	arr_size--;
-	tail--;
+	arr_tail--;
 }
 
 template<typename T>
@@ -108,7 +107,7 @@ inline int Myvector<T>::size() {
 template<typename T>
 void Myvector<T>::clear() {
 	// delete [] arr;
-	tail = &arr[0];
+	arr_tail = &arr_head[0];
 	arr_size = 0;
 }
 
@@ -119,8 +118,8 @@ void Myvector<T>::print() {
 		return;
 	}
 
-	T *temp = arr;
-	while (temp != tail) {
+	T *temp = arr_head;
+	while (temp != arr_head + arr_size) {
 		std::cout << *temp << " ";
 		temp++;
 	}
@@ -128,8 +127,41 @@ void Myvector<T>::print() {
 }
 
 template<typename T>
+void Myvector<T>::resize(int n) {
+	assert(n > 0);
+	T* temp_arr = new T[n];
+	if (n >= arr_size)
+		std::copy(arr_head, arr_head + size(), temp_arr);
+	else // If downsize array
+		std::copy(arr_head, arr_head + n, temp_arr);
+	delete[] arr_head;
+	arr_head = temp_arr;
+	temp_arr = nullptr;
+
+	// Different with push_back_resize():
+	arr_tail = arr_head + n;
+	arr_size = n;
+}
+
+template<typename T>
+void Myvector<T>::push_back_resize(int n) {
+	assert(n > 0);
+	T* temp_arr = new T[n];
+	if (n >= size())
+		std::copy(arr_head, arr_head + size(), temp_arr);
+	else // Downsize array
+		std::copy(arr_head, arr_head + n, temp_arr);
+	delete[] arr_head;
+	arr_head = temp_arr;
+	temp_arr = nullptr;
+
+	// Different with resize():
+	arr_tail = arr_head + arr_size;
+}
+
+template<typename T>
 inline T& Myvector<T>::operator[](int n) {
-	return arr[n];
+	return arr_head[n];
 }
 
 // template<typename T>
